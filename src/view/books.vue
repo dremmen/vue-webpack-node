@@ -34,16 +34,15 @@
                 </div>
                 <div class="book-detail-btn" data-read-status="0" data-bookshelf-status="0" data-l1="2">
                     <ul class="btn-group">
-                        <li class="btn-group-cell"><router-link to="/book/1010245952/0" class="btn-normal red" id="btnReadBook" data-eid="mqd_G02">免费试读</router-link></li>
-                        <li class="btn-group-cell"><router-link to="javascript:" class="btn-normal white" id="btnAddToBookshelf" data-bookshelf-status="" data-eid="mqd_G03" role="button">加入书架</router-link></li>                         
-                        <li class="btn-group-cell"><router-link to="javascript:" id="myCart" class="btn-normal white" data-eid="mqd_G04" role="button">VIP订阅</router-link></li>    
+                        <li class="btn-group-cell"><router-link :to="{path: '/bookContent/'+bookid+'/'+1}" class="btn-normal red" id="btnReadBook" data-eid="mqd_G02">免费试读</router-link></li>
+                        <li class="btn-group-cell"><router-link to="javascript:" class="btn-normal white" id="btnAddToBookshelf" data-bookshelf-status="" data-eid="mqd_G03" role="button">加入书架</router-link></li> 
                     </ul>
                 </div>
             </div>
         </div>
         <div class="bg-white">
         	<div class="book-inro">{{book.intro}}</div>
-	        <router-link to="booksList" class="book-meta book-status">
+	        <router-link :to="{path: '/bookslist/'+bookid}" class="book-meta book-status">
 	            <div class="book-meta-l">
 	               <strong class="book-spt">目录</strong>
 	            </div>
@@ -259,15 +258,17 @@ export default{
 	components: {foot},
 	data () {
 		return{
-			book: ''
+			book: '',
+			bookid: ''
 		}
 	},
   	beforeCreate () {
   		this.$http.post('./api/book/bookById',{
   			id: this.$route.params.Id
   		}).then((response) => {
-  			console.log(response);
-  			this.book = response.body[0];
+  			console.log(response)
+  			this.book = response.body[0]
+  			this.bookid = this.$route.params.Id
   		})
 	}
 }

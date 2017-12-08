@@ -8,34 +8,51 @@
 			  </el-carousel-item>
 			</el-carousel>
 		</div>
-		<div class="search">
-		  <el-input placeholder="请输入内容" class="input-with-select">
-		    <el-button slot="append" icon="el-icon-search"></el-button>
-		  </el-input>
-		</div>
+		<router-link to="/search" class="search"><el-input placeholder="请输入内容" class="input-with-select"></el-input></router-link>
 		<div class="icon-row">
 			<el-row :gutter="20">
-				<el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-				<el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+				<el-col :span="6"><div class="grid-content">书架</div></el-col>
+				<el-col :span="6"><div class="grid-content">分类</div></el-col>
+				<el-col :span="6"><router-link to="/doneBooks" class="grid-content">完结</router-link></el-col>
+				<el-col :span="6"><div class="grid-content">排行</div></el-col>
 			</el-row>	
 		</div>
     <hot-recommend :booksArr="booksArr"></hot-recommend>
-    <new-books :newBooksArr="newBooksArr"></new-books>
-    <done-books :doneBooksArr="doneBooksArr"></done-books>
+    <div class="new-books">          
+      <div class="module-header">
+        <div class="module-header-l">
+          <h3 class="module-title">新书抢鲜</h3>
+          <span id="ariaDescNew" class="module-title-desc">24小时热销新书</span>
+        </div>
+        <div class="module-header-r">
+          <router-link to="/newbook/male" class="module-header-btn">更多</router-link>
+        </div>
+      </div>
+      <book-json :booksJson="newBooksArr"></book-json>      
+    </div>
+    <div class="done-books">          
+      <div class="module-header">
+        <div class="module-header-l">
+          <h3 class="module-title">畅销完本</h3>
+          <span id="ariaDescHot" class="module-title-desc">一周热销完本书</span>
+        </div>
+        <div class="module-header-r">
+          <router-link to="/newbook/male" class="module-header-btn">更多</router-link>
+        </div>
+      </div>
+      <book-json :booksJson="doneBooksArr"></book-json> 
+    </div>
     <foot></foot>
 	</div>
 </template>
 
 <script>
 import hotRecommend from '@/components/hotRecommend'
-import newBooks from '@/components/newBooks'
-import doneBooks from '@/components/doneBooks'
+import bookJson from '@/components/booksJson'
 import foot from '@/components/foot'
 export default{
 	name: 'home',
-  components: {hotRecommend,newBooks,doneBooks,foot},
+  components: {hotRecommend,bookJson,foot},
 	data(){
     const imgUrl = [
       'http://qidian.qpic.cn/qidian_common/349573/7f2a949865ae4d5c797f5f76cad4e4cc/0',
@@ -47,11 +64,10 @@ export default{
       listUrl: imgUrl,
       booksArr: '[]',
       newBooksArr: '[]',
-      doneBooksArr: '[]',
-
+      doneBooksArr: '[]'
 		}
 	},
-  beforeCreate () {
+  mounted () {
     this.$http.post('./api/book/bookSelect').then((response) => {
       this.booksArr = response.body
     });
@@ -66,44 +82,26 @@ export default{
   }
 }
 </script>
-<style>
-body,html{padding: 0;margin: 0;}
+<style scoped>
+  body,html{padding: 0;margin: 0;}
+  .done-books,.new-books{background-color: #fff;margin-top: 1rem;}
   .carousel{margin-bottom: 10px;}
   .el-carousel__item img{
     width: 100%;
   }
-  .search{margin: 10px;}
-
-  .el-row {
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+  .search{margin: 10px;display: block;}
   .grid-content {
     border-radius: 4px;
     min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+    text-align: center;
+    line-height: 36px;
+    box-shadow: 1px 0 7px rgba(0,0,0,.2);
+    display: block;
   }
   .icon-row{
     padding: 10px;
     background-color: #fff;
   }
-  .el-input{}
 </style>
 
 

@@ -1,6 +1,4 @@
-# vue-pro
-
-> this is a vue-pro
+##VUE2.0+vue-cli+webpack+node.js+mysql实现小说网站
 
 ## Build Setup
 
@@ -19,3 +17,12 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# 主要功能截图
+
+![index](./demo-show/index.png)
+![books](./demo-show/books.png)
+![booksList](./demo-show/booksList.png)
+![booksContent](./demo-show/booksContent.png)
+![booksSearch](./demo-show/booksSearch.png)
+![demo](./demo-show/demo.gif)

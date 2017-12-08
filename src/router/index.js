@@ -4,10 +4,14 @@ import home from '@/view/home'
 import books from '@/view/books'
 import booksList from '@/view/booksList'
 import bookContent from '@/view/bookContent'
+import doneBooks from '@/view/doneBooks'
+import search from '@/view/search'
+
 
 Vue.use(Router)
 
 export default new Router({
+  // mode: 'history',
   routes: [
     {
 		path: '/',
@@ -20,14 +24,24 @@ export default new Router({
 		component: books
     },
     {
-		path: '/booksList',
+		path: '/booksList/:Id',
 		name: 'booksList',
 		component: booksList
     },
     {
-		path: '/bookContent',
+		path: '/bookContent/:bookId/:bookContentId',
 		name: 'bookContent',
 		component: bookContent
+    },
+    {
+		path: '/doneBooks',
+		name: 'doneBooks',
+		component: doneBooks
+    },
+    {
+		path: '/search',
+		name: 'search',
+		component: search
     }
   ]
 })
