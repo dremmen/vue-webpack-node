@@ -1,17 +1,15 @@
 <template>
-	<div class="doneBooks">		
-		<footer class="footer">
-			<div class="footer-link">
-				<router-link to="//qidian.gtimg.com/QDReader/?redirect=https%3A%2F%2Fitunes.apple.com%2Fcn%2Fapp%2Fqi-dian-du-shu-li-xian-ban%2Fid534174796%3Fmt%3D8" class="footer-link-a jsDownloadLink">客户端</router-link>
-				<router-link to="//m.qidian.com" class="footer-link-a dark">触屏版</router-link>
-				<router-link id="aGoPCSite" to="//www.qidian.com" class="footer-link-a">电脑版</router-link>
-				<router-link to="/user/help" class="footer-link-a">帮助</router-link>
-				<router-link id="aFeedbackUnLogin" to="javascript:" target="_blank" class="footer-link-a jsLogin">反馈</router-link>
-				<router-link id="aFeedbackLogin" to="javascript:" target="_blank" class="footer-link-a jsUserWrapper" style="display: none;" hidden="">反馈</router-link>
-			</div>
-			<div class="footer-copy">copyright © 2002-2017 m.huangmenmen.com</div>
-		</footer>
-	</div>
+	<footer class="footer">
+		<div class="footer-link">
+			<router-link to="//qidian.gtimg.com/QDReader/?redirect=https%3A%2F%2Fitunes.apple.com%2Fcn%2Fapp%2Fqi-dian-du-shu-li-xian-ban%2Fid534174796%3Fmt%3D8" class="footer-link-a jsDownloadLink">客户端</router-link>
+			<router-link to="//m.qidian.com" class="footer-link-a dark">触屏版</router-link>
+			<router-link id="aGoPCSite" to="//www.qidian.com" class="footer-link-a">电脑版</router-link>
+			<router-link to="/user/help" class="footer-link-a">帮助</router-link>
+			<router-link id="aFeedbackUnLogin" to="javascript:" target="_blank" class="footer-link-a jsLogin">反馈</router-link>
+			<router-link id="aFeedbackLogin" to="javascript:" target="_blank" class="footer-link-a jsUserWrapper" style="display: none;" hidden="">反馈</router-link>
+		</div>
+		<div class="footer-copy">copyright © 2002-2017 m.huangmenmen.com</div>
+	</footer>
 </template>
 
 <script>

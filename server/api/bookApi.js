@@ -67,5 +67,62 @@ router.post('/bookById',(req,res)=>{
 		}
 	})
 });
+
+router.post('/bookListById',(req,res)=>{
+	var params = req.body.bookId;
+	var sql = 'select * from book'+params;
+	conn.query(sql, function(err,result){
+		if(err){
+			console.log(err);
+		}
+		if(result){
+			jsonWrite(res, result);
+		}
+	})
+});
+ 
+router.post('/bookContentById',(req,res)=>{
+	var bookId = req.body.bookId;
+	var bookContentId = req.body.bookContentId;
+	var sql = 'select * from book'+bookId+' where Id='+bookContentId;
+	console.log(sql);
+	conn.query(sql, function(err,result){
+		if(err){
+			console.log(err);
+		}
+		if(result){
+			jsonWrite(res, result);
+		}
+	})
+});
+
+// 完整本
+router.post('/doneBooks',(req,res)=>{
+	var sql = $sql.booklist.doneBooks;
+	conn.query(sql, function(err,result){
+		if(err){
+			console.log(err);
+		}
+		if(result){
+			jsonWrite(res, result);
+		}
+	})
+});
+
+// 搜索
+router.post('/bookSearch',(req,res)=>{
+	var bookName = req.body.bookName;
+	var sql = 'select * from booklist where name LIKE "%'+bookName+'%"'	
+	conn.query(sql, function(err,result){
+		console.log(sql);
+		console.log(result)
+		if(err){
+			console.log(err);
+		}
+		if(result){
+			jsonWrite(res, result);
+		}
+	})
+});
  
 module.exports = router;

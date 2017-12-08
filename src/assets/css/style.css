@@ -127,6 +127,11 @@
 	.chapter-li-a {font: 14px/20px a;display: block;overflow: hidden;padding: 12px 1rem;}
 	.chapter-ol-catalog .chapter-li-a {padding-right: 2rem;white-space: nowrap;text-overflow: ellipsis;}
 	.chapter-li::after {display: block;margin-top: -1px;margin-left: 1rem;content: '';transform: scaleY(.75);border-top: 1px solid #f0f1f2;}
+	
+	/* bookContent */	
+	.read-load-next, .read-load-prev {font-size: .75rem;position: relative;right: 0;left: 0;overflow: hidden;height: 58px;transition: height .25s,border-bottom-width .25s;text-align: center;color: rgba(0,0,0,.4);}
+	.read-load-next .btn-normal {font-size: .875rem;line-height: 2.25rem;border-radius: 99px;width: 17.5rem;}
+	.red {color: #ed424b;}
 
 	@media screen and (min-width: 414px){
 		.chapter-tab-x .module-header {padding: 9px 1rem;}		

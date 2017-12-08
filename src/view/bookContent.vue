@@ -1,34 +1,91 @@
 <template>
 	<div class="bookContent">
     	<vue-progress-bar></vue-progress-bar>
-    	<div id="pageRead" class="page-read ">
-		    <content id="readContent" class="page-read-content">
-		        <article id="chapterContent" class="read-article" style="font-size: 1.125rem;">
-	                <section class="read-section jsChapterWrapper">
-	                    <h3>现在还没开通打赏，请大家推荐收藏就好。</h3>
-	                    <p>		因为起点合同流程还没走完，所以显示还是未签约状态，有朋友提及了打赏的问题，心意领了，大家就先收藏，安静看书吧：）</p>
-	                </section>
-				</article>
-		    </content>    
-		    <div class="page-read-top">
-		        <h1 id="chapterTitle" class="read-book-name">现在还没开通打赏，请大家推荐收藏就好。</h1>
-		    </div>
-		</div>
+        <pullRefresh @onFatherInfinite="onInfinite">
+            <div id="pageRead" class="page-read" v-for="(downItem,index) in booksList">
+                <content id="readContent" class="page-read-content">
+                    <article id="chapterContent" class="read-article" style="font-size: 1.125rem;">
+                            <section class="read-section jsChapterWrapper">
+                                <h3>{{downItem.title}}</h3>
+                                <p v-html="downItem.content"></p>
+                            </section>
+                    </article>
+                </content>
+            </div>
+            <div class="page-read-top">
+                <h1 id="chapterTitle" class="read-book-name">{{bookTitle}}</h1>
+            </div>
+        </pullRefresh>
 	</div>
+
 </template>
 
 <script>
+import pullRefresh from "@/components/pull-refresh"
 export default{
 	name: 'bookContent',
+    components: {pullRefresh},
 	data(){
-		return{}
-	}
+		return{
+            booksList: [],
+            bookTitle: '',
+            upCounter: 0, // 下拉更新数据存放数组
+            downCounter: 0, // 上拉更多的数据存放数组
+        }
+	},
+    methods: {
+        getList(bookId,bookContentId,upOrdown) {
+            this.$http.post('./api/book/bookContentById',{
+                bookId: this.$route.params.bookId,
+                bookContentId: bookContentId
+            }).then((response) => {
+                if(upOrdown){
+                    this.booksList.push(response.body[0])
+                }else{
+                    this.booksList.unshift(response.body[0])
+                }
+                this.bookTitle = response.body[0].title
+            })
+        },
+        upRefresh(done){
+            this.upCounter++
+            let bookContentId = parseInt(this.$route.params.bookContentId) + this.upCounter
+            this.getList(this.$route.params.bookId,bookContentId,true);
+            done()
+        },
+        downRefresh(done){
+            this.downCounter--
+            let bookContentId = parseInt(this.$route.params.bookContentId) + this.downCounter
+            if(bookContentId<=0){
+                return;
+            }
+            this.getList(this.$route.params.bookId,bookContentId,false);
+            done()
+        },
+        onInfinite(done,status) {
+          if(status){
+            this.upRefresh(done);
+          }else{
+            this.downRefresh(done);
+          }
+        }
+    },
+    mounted: function() {
+        this.$http.post('./api/book/bookContentById',{
+            bookId: this.$route.params.bookId,
+            bookContentId: this.$route.params.bookContentId
+        }).then((response) => {
+            this.booksList.push(response.body[0])
+            this.bookTitle = response.body[0].title
+        })
+    }
 }
 </script>
-<style>
+<style scoped>
 body,html{
     background-color: #c4b395;
 }
+.pull-refresh-block{background-color: #c4b395;}
 .bookContent{padding-top: 2.75rem;color: rgba(0,0,0,.85);}
 .page-read-top {
     position: fixed;
@@ -36,7 +93,9 @@ body,html{
     right: 0;
     left: 0;
     height: 44px;
-    background: inherit;
+    background: inherit;    
+    z-index: 99;
+    background-color: #c4b395;
 }
 .read-book-name {
     font-size: .75rem;
@@ -50,7 +109,6 @@ body,html{
     font-size: 1rem;
     line-height: 1.8;
     overflow: hidden;
-    min-height: calc(100vh - 44px);
     margin: 0 16px;
     text-align: justify;
 }
@@ -68,11 +126,5 @@ body,html{
 .read-article p {
     font-size: 1em;
     margin: .1em 0;
-    text-indent: 2.1em;
 }
 </style>
-
-
-
-
-
