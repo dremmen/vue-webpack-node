@@ -33,3 +33,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ![booksSearch](./demo-show/booksSearch.png)
 ### 具体看书步骤介绍
 ![demo](./demo-show/demo.gif)
+
+# 具体功能能作者还在完善，敬请期待
