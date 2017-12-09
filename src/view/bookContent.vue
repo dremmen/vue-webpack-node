@@ -1,7 +1,7 @@
 <template>
 	<div class="bookContent">
     	<vue-progress-bar></vue-progress-bar>
-        <pullRefresh @onFatherInfinite="onInfinite">
+        <pullRefresh @onFatherInfinite="onInfinite"  :footShow="footShow" :upPull="upPull">
             <div id="pageRead" class="page-read" v-for="(downItem,index) in booksList">
                 <content id="readContent" class="page-read-content">
                     <article id="chapterContent" class="read-article" style="font-size: 1.125rem;">
@@ -31,6 +31,8 @@ export default{
             bookTitle: '',
             upCounter: 0, // 下拉更新数据存放数组
             downCounter: 0, // 上拉更多的数据存放数组
+            footShow: false,
+            upPull: true
         }
 	},
     methods: {

@@ -68,10 +68,10 @@ router.post('/bookById',(req,res)=>{
 	})
 });
 
-router.post('/bookListById',(req,res)=>{
-	var params = req.body.bookId;
-	var sql = 'select * from book'+params;
-	conn.query(sql, function(err,result){
+router.post('/bookListByIdPage',(req,res)=>{
+	var params = req.body;
+	var sql = 'select Id,title from book'+params.bookId+' limit ? , ?';
+	conn.query(sql, [params.page,params.list], function(err,result){
 		if(err){
 			console.log(err);
 		}
@@ -85,7 +85,6 @@ router.post('/bookContentById',(req,res)=>{
 	var bookId = req.body.bookId;
 	var bookContentId = req.body.bookContentId;
 	var sql = 'select * from book'+bookId+' where Id='+bookContentId;
-	console.log(sql);
 	conn.query(sql, function(err,result){
 		if(err){
 			console.log(err);

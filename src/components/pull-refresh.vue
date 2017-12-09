@@ -1,27 +1,32 @@
 <template lang="html">
 	<div class="pull-refresh-block" :class="{'down':(state===0),'up':(state==1),refresh:(state===2),touch:touching}" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="touchEnd($event)">
 		<section class="inner" :style="{paddingTop: top+'px'}">
-			<header class="pull-refresh">
+			<header class="pull-refresh" v-show="upPull">
 				<slot name="pull-refresh">
-					<span class="refresh-tip">加载中……</span>
+					<loading></loading>
 				</slot>
 			</header>
 			<slot>
 			</slot>
             <div id="readLoadNext" class="read-load-next load-more">
-                <a id="btnLoadNextChapter" href="javascript:" class="btn-normal red" data-size="14" role="button">加载下一章</a>
+                <!-- <a id="btnLoadNextChapter" href="javascript:" class="btn-normal red" data-size="14" role="button">加载下一章</a> -->
+                <loading></loading>
             </div>
+            <foot v-show="footShow"></foot>
 		</section>
 	</div>
 </template>
 <style>
 </style>
 <script>
+	import foot from '@/components/foot'
+	import loading from '@/components/upLoading'
 	export default {
+		components: {foot,loading},
 		props: {
 			offset: {
 				type: Number,
-				default: 90 //默认高度
+				default: 60 //默认高度
 			},
 			enableInfinite: {
 				type: Boolean,
@@ -32,6 +37,14 @@
 				default: true
 			},
 			dataList: {
+				default: false,
+				required: false
+			},
+			footShow: {
+				default: false,
+				required: false
+			},
+			upPull: {
 				default: false,
 				required: false
 			}
@@ -85,6 +98,10 @@
 				}
 				this.touching = false
 				if(this.top >= this.offset) {
+					if(!this.upPull){
+						this.top = 0;
+						return;
+					}
 					this.top = this.offset
 					this.infinite(false);
 				}else{
