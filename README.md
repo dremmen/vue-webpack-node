@@ -19,7 +19,7 @@ npm run build --report
 
 ##  新添章节上拉刷新和更改一些小bug   （2017/12/9）
 
-### 这里给一位大大的文章 上下拉刷新（http://blog.csdn.net/qq_16559905/article/details/70160807）	 
+### 这里给一位大大的文章 [上下拉刷新](http://blog.csdn.net/qq_16559905/article/details/70160807)
 
 
 ## 主要功能截图
