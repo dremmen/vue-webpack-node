@@ -12,9 +12,9 @@
 		<div class="icon-row">
 			<el-row :gutter="20">
 				<el-col :span="6"><div class="grid-content">书架</div></el-col>
-				<el-col :span="6"><div class="grid-content">分类</div></el-col>
 				<el-col :span="6"><router-link to="/doneBooks" class="grid-content">完结</router-link></el-col>
 				<el-col :span="6"><div class="grid-content">排行</div></el-col>
+        <el-col :span="6"><router-link to="/login" class="grid-content">我的</router-link></el-col>
 			</el-row>	
 		</div>
     <hot-recommend :booksArr="booksArr"></hot-recommend>

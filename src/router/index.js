@@ -6,6 +6,8 @@ import booksList from '@/view/booksList'
 import bookContent from '@/view/bookContent'
 import doneBooks from '@/view/doneBooks'
 import search from '@/view/search'
+import login from '@/view/login'
+import regist from '@/view/regist'
 
 
 Vue.use(Router)
@@ -42,6 +44,16 @@ export default new Router({
 		path: '/search',
 		name: 'search',
 		component: search
+    },
+    {
+		path: '/login',
+		name: 'login',
+		component: login
+    },
+    {
+		path: '/regist',
+		name: 'regist',
+		component: regist
     }
   ]
 })

@@ -23,6 +23,8 @@ npm run build --report
 ### 这里给一位大大上下拉刷新的文章 [上下拉刷新](http://blog.csdn.net/qq_16559905/article/details/70160807)
 
 
+## 新添加了登录注册功能，只是存进数据库，还没有具体的实现书架功能，最近有点忙，书架功能这两天再补上去	（2017/12/12）
+
 ## 主要功能截图
 
 ### 首页介绍
@@ -35,7 +37,5 @@ npm run build --report
 ![booksContent](./demo-show/booksContent.png)
 ### 搜索介绍
 ![booksSearch](./demo-show/booksSearch.png)
-### 具体看书步骤介绍
-![demo](./demo-show/demo.gif)
 
 # 具体功能能作者还在完善，敬请期待
