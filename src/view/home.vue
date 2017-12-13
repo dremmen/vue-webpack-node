@@ -11,10 +11,11 @@
 		<router-link to="/search" class="search"><el-input placeholder="请输入内容" class="input-with-select"></el-input></router-link>
 		<div class="icon-row">
 			<el-row :gutter="20">
-				<el-col :span="6"><div class="grid-content">书架</div></el-col>
+				<el-col :span="6"><router-link to="/bookshelf" class="grid-content">书架</router-link></el-col>
 				<el-col :span="6"><router-link to="/doneBooks" class="grid-content">完结</router-link></el-col>
 				<el-col :span="6"><div class="grid-content">排行</div></el-col>
-        <el-col :span="6"><router-link to="/login" class="grid-content">我的</router-link></el-col>
+        <el-col v-show="!hasLogin" :span="6"><router-link to="/login" class="grid-content">登录</router-link></el-col>
+        <el-col v-show="hasLogin" :span="6"><router-link to="/person" class="grid-content"><img v-show="hasLogin" src="../assets/img/user.png" alt="用户头像" width="32" height="32"></router-link></el-col>
 			</el-row>	
 		</div>
     <hot-recommend :booksArr="booksArr"></hot-recommend>
@@ -64,10 +65,14 @@ export default{
       listUrl: imgUrl,
       booksArr: '[]',
       newBooksArr: '[]',
-      doneBooksArr: '[]'
+      doneBooksArr: '[]',
+      hasLogin: false,
 		}
 	},
   mounted () {
+    if(localStorage.name){
+      this.hasLogin = true
+    }
     this.$http.post('./api/book/bookSelect').then((response) => {
       this.booksArr = response.body
     });
@@ -97,7 +102,9 @@ export default{
     line-height: 36px;
     box-shadow: 1px 0 7px rgba(0,0,0,.2);
     display: block;
+    position: relative;
   }
+  .grid-content img{position: absolute;left: 20px;top: 2px;}
   .icon-row{
     padding: 10px;
     background-color: #fff;

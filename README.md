@@ -25,6 +25,13 @@ npm run build --report
 
 ## 新添加了登录注册功能，只是存进数据库，还没有具体的实现书架功能，最近有点忙，书架功能这两天再补上去	（2017/12/12）
 
+## 新添加简单的添加书架，还没完成，明天继续	（2017/12/13）
+	* 主要实现方式是：获取书本的id，组成字符串存进用户表
+	* 加入书架是判断该用户是否存在这本书
+		* 存在不能添加
+		* 判断用户，主要是获取登录时存进localStorage里面的用户id
+	* 目前只有登录的用户才能添加书架
+
 ## 主要功能截图
 
 ### 首页介绍
@@ -37,5 +44,7 @@ npm run build --report
 ![booksContent](./demo-show/booksContent.png)
 ### 搜索介绍
 ![booksSearch](./demo-show/booksSearch.png)
+### 书架介绍
+![bookShelf](./demo-show/bookShelf.png)
 
 # 具体功能能作者还在完善，敬请期待

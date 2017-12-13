@@ -34,8 +34,11 @@
                 </div>
                 <div class="book-detail-btn" data-read-status="0" data-bookshelf-status="0" data-l1="2">
                     <ul class="btn-group">
-                        <li class="btn-group-cell"><router-link :to="{path: '/bookContent/'+bookid+'/'+1}" class="btn-normal red" id="btnReadBook" data-eid="mqd_G02">免费试读</router-link></li>
-                        <li class="btn-group-cell"><router-link to="javascript:" class="btn-normal white" id="btnAddToBookshelf" data-bookshelf-status="" data-eid="mqd_G03" role="button">加入书架</router-link></li> 
+                        <li class="btn-group-cell"><router-link :to="{path: '/bookContent/'+bookid+'/'+1}" class="btn-normal red">免费试读</router-link></li>
+                        <li class="btn-group-cell">
+                        	<span class="btn-normal white" v-show="!has" @click="addShelf">加入书架</span>
+                        	<span class="btn-normal has white" v-show="has">已在书架</span>
+                        </li> 
                     </ul>
                 </div>
             </div>
@@ -259,16 +262,44 @@ export default{
 	data () {
 		return{
 			book: '',
-			bookid: ''
+			bookid: '',
+			has: false,
+			bookJson: ''
 		}
 	},
-  	beforeCreate () {
+	methods: {
+		hasShelf () {
+			this.$http.post('./api/user/bookshelf',{
+	  			userId: localStorage.id
+	  		}).then((response) => {
+	  			var bookIdArr = response.body[0].bookIdJson
+	  			this.bookJson = bookIdArr;
+	  			bookIdArr.split(',');
+	  			for(var k in bookIdArr){
+	  				if(this.bookid == bookIdArr[k]){
+	  					this.has = true
+	  				}
+	  			}
+	  		})
+		},
+		addShelf () {
+			this.bookJson = this.bookJson+','+this.bookid
+			console.log(this.bookJson)
+			this.$http.post('./api/user/addShelf',{
+	  			userId: localStorage.id,
+	  			bookJson: this.bookJson
+	  		}).then((response) => {
+	  			this.has = true
+	  		})
+		}
+	},
+  	mounted () {
   		this.$http.post('./api/book/bookById',{
   			id: this.$route.params.Id
   		}).then((response) => {
-  			console.log(response)
   			this.book = response.body[0]
   			this.bookid = this.$route.params.Id
+  			this.hasShelf();
   		})
 	}
 }
@@ -278,6 +309,9 @@ export default{
 	.books .header{z-index: 1;border-bottom: 0;background: 0 0;}
 	.book-detail-x {position: relative;overflow: hidden;margin-top: -2.75rem;}
 	.book-inro{font-size: .875rem;line-height: 1.5rem;position: relative;overflow: hidden;margin-left: 1rem;padding-right: 1rem;text-align: justify;border-top: 1rem solid transparent;border-bottom: 1rem solid transparent;box-shadow: 0 1px #f0f1f2, 0 -1px #f0f1f2;text-indent: 2.1rem;}
+	.btn-group-cell .has.btn-normal{
+	    background-color: transparent;
+	}
 </style>
 
 

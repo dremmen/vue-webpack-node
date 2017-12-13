@@ -113,8 +113,6 @@ router.post('/bookSearch',(req,res)=>{
 	var bookName = req.body.bookName;
 	var sql = 'select * from booklist where name LIKE "%'+bookName+'%"'	
 	conn.query(sql, function(err,result){
-		console.log(sql);
-		console.log(result)
 		if(err){
 			console.log(err);
 		}
@@ -123,5 +121,5 @@ router.post('/bookSearch',(req,res)=>{
 		}
 	})
 });
- 
+
 module.exports = router;

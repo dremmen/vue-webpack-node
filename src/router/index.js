@@ -8,6 +8,8 @@ import doneBooks from '@/view/doneBooks'
 import search from '@/view/search'
 import login from '@/view/login'
 import regist from '@/view/regist'
+import person from '@/view/person'
+import bookshelf from '@/view/bookshelf'
 
 
 Vue.use(Router)
@@ -54,6 +56,16 @@ export default new Router({
 		path: '/regist',
 		name: 'regist',
 		component: regist
+    },
+    {
+		path: '/person',
+		name: 'person',
+		component: person
+    },
+    {
+		path: '/bookshelf',
+		name: 'bookshelf',
+		component: bookshelf
     }
   ]
 })

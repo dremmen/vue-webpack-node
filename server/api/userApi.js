@@ -40,14 +40,14 @@ var jsonWrite = function(res,ret){
 
 router.post('/login',(req,res)=>{	
 	var params = req.body;
-	var sqlHas = 'select 1 from user where username = "' + params.username+'" and password = "'+params.password+'"';
+	var sqlHas = 'select * from user where username = "' + params.username+'" and password = "'+params.password+'"';
 	conn.query(sqlHas,function(err,result){
 		if(err){console.log(err);}
+		console.log(result);
 		if(result.length>0){
-			console.log(result);
-			jsonWrite(res, errJson.loginSuccess);
+			jsonWrite(res, result.concat(errJson.loginSuccess));
 		}else{
-
+			jsonWrite(res, errJson.loginErr);
 		}
 	})
 });
@@ -60,7 +60,6 @@ router.post('/regist',(req,res)=>{
 	conn.query(sqlHas,function(err,result){
 		if(err){console.log(err);}
 		if(result.length>0){
-			console.log(result);
 			jsonWrite(res, errJson.hasUser);
 		}else{
 			conn.query(sqlAdd,function(err,results){
@@ -72,5 +71,35 @@ router.post('/regist',(req,res)=>{
 		}
 	})
 });
+
+// 书架
+router.post('/bookshelf',(req,res)=>{
+	var userId = req.body.userId;
+	var sql = 'select bookIdJson from user where Id= '+userId	
+	conn.query(sql, function(err,result){
+		if(err){
+			console.log(err);
+		}
+		if(result){
+			jsonWrite(res, result);
+		}
+	})
+});
+
+// 加入书架
+router.post('/addShelf',(req,res)=>{
+	var bookIdJson = req.body.bookJson;
+	var userId = req.body.userId;
+	var sql = 'update user set bookIdJson = "'+	bookIdJson + '" where Id = ' + userId;
+	conn.query(sql, function(err,result){
+		if(err){
+			console.log(err);
+		}
+		if(result){
+			jsonWrite(res, result);
+		}
+	})
+}); 
+ 
 
 module.exports = router;

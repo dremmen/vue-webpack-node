@@ -36,21 +36,24 @@
 		},
 		methods: {	
 			login () {
+				if(!this.username || !this.password){
+					this.error_tip = '请输入用户名或者密码';
+					return;
+				}
 				this.$http.post('./api/user/login',{
 	                username: this.username,
 	                password:this.password
 	            }).then((response) => {
-	            	console.log(response);
 	            	this.error_tip = response.body.Msg;
-	            	if(response.body.Num == '4'){
-	            		this.error_tip = ''
+	            	if(response.body[1].Num == '4'){
+						localStorage.name = this.username;
+						localStorage.id = response.body[0].Id;
+	            		this.error_tip = '';
 	            		var _this = this;
 	            		setTimeout(function(){
 				            _this.$router.push({name: 'home'});
 				        },10);
-	            	}	 
-	            	this.username = ""
-	            	this.password = ""           	
+	            	}        	
 	            })
 			},
 		}
